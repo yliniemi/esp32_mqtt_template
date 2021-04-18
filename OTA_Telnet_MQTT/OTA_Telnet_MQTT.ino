@@ -1,5 +1,5 @@
-#define HOSTNAME "NoloHuone"
-#define OTArounds 12
+#define HOSTNAME "NoloHuone"  // replace this with the name for this particular device. everyone deserves a unique name
+#define OTArounds 12          // this is how many seconds we waste waiting for the OTA during boot. sometimes people make mistakes in their code - not me - and the program freezes. this way you can still update your code over the air even if you have some dodgy code in your loop
 #include <myCredentials.h>
 
 #include <WiFi.h>
