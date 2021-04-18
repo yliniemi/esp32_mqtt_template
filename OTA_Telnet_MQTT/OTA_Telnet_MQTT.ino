@@ -1,6 +1,6 @@
-#define HOSTNAME "NoloHuone"  // replace this with the name for this particular device. everyone deserves a unique name
-#define OTArounds 12          // this is how many seconds we waste waiting for the OTA during boot. sometimes people make mistakes in their code - not me - and the program freezes. this way you can still update your code over the air even if you have some dodgy code in your loop
-#include <myCredentials.h>    // oh yeah. these is myCredentials.zip on the root of this repository. include it as a library and the edit the file with your onw ips and stuff
+#define HOSTNAME "NoloHuone"      // replace this with the name for this particular device. everyone deserves a unique name
+#define OTA_ROUNDS 21             // this is how many seconds we waste waiting for the OTA during boot. sometimes people make mistakes in their code - not me - and the program freezes. this way you can still update your code over the air even if you have some dodgy code in your loop
+#include <myCredentials.h>        // oh yeah. these is myCredentials.zip on the root of this repository. include it as a library and the edit the file with your onw ips and stuff
 
 // #include <WiFi.h>
 // #include <ESPmDNS.h>
@@ -13,9 +13,11 @@
 EspMQTTClient MQTTclient(
   //WIFI_SSID,
   //WIFI_PSK,
-  MQTT_SERVER,  // MQTT Broker server ip
-  1883,              // default unencrypted port is 1883
-  HOSTNAME        // Client name that uniquely identify your device
+  MQTT_SERVER,      // MQTT Broker server ip
+  1883,             // default unencrypted port is 1883
+  MQTT_USERNAME,    // Can be omitted if not needed
+  MQTT_PASSWORD,    // And this one too 
+  HOSTNAME          // Client name that uniquely identify your device
 );
 
 void onConnectionEstablished()
@@ -40,7 +42,7 @@ void setup() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   
-  setupOTA(HOSTNAME, OTApassword, OTArounds);
+  setupOTA(HOSTNAME, OTApassword, OTA_ROUNDS);
 
   setupSerialOTA(HOSTNAME);
 
