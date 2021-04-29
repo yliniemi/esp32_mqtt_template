@@ -80,8 +80,6 @@ void loop()
   SerialOTA.print("loop count: ");
   SerialOTA.println(loop_count);
   
-  String payloadStr = String(loop_count);
-  String hostnameStr = HOSTNAME;
-  MQTTclient.publish(String(HOSTNAME) + "/loop_count", payloadStr);
+  MQTTclient.publish(String(HOSTNAME) + "/loop_count", String(loop_count));
   delay(1000);
 }
