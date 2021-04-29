@@ -1,9 +1,12 @@
 #ifndef SETUPWIFI_H
 #define SETUPWIFI_H
 
+#include "settings.h"
+#include <myCredentials.h>
+
 #include <WiFi.h>
 
-
-void setupWifi(char *ssid, char *psk);
+void reconnectToWifiIfNecessary();
+void setupWifi();
 
 #endif
