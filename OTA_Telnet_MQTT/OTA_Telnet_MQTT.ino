@@ -57,13 +57,15 @@ void setup() {
 
   // setupMQTT(HOSTNAME, MQTT_SERVER);
   MQTTclient.enableDebuggingMessages(); // Enable debugging messages sent to serial output
-
+  
+  // I had to do this trickery because EspMQTTclient -library doesn't support Strings for the lastwill for some reason
   String lastWillTopic = String(HOSTNAME) + "/lastwill";
-  char lastWillTopicChar[lastWillTopic.length() + 1];
+  //char lastWillTopicChar[lastWillTopic.length() + 1];
+  static char lastWillTopicChar[65];
   lastWillTopic.toCharArray(lastWillTopicChar, lastWillTopic.length());
   SerialOTA.println(lastWillTopicChar);
   Serial.println(lastWillTopicChar);
-  MQTTclient.enableLastWillMessage(lastWillTopicChar, "What a world, what a world!");  // For some reason this line prevents MQTT connection altogether
+  MQTTclient.enableLastWillMessage(lastWillTopicChar, "What a world, what a world!");
 }
 
 void loop()
@@ -75,8 +77,10 @@ void loop()
   
   static int loop_count = 0;
   loop_count++;
+  Serial.println();
   Serial.print("loop count: ");
   Serial.println(loop_count);
+  SerialOTA.println();
   SerialOTA.print("loop count: ");
   SerialOTA.println(loop_count);
   
