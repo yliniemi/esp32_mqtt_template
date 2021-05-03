@@ -3,7 +3,11 @@
 
 #include "setupWifi.h"
 #include "OTA.h"
+
+#ifdef USING_SERIALOTA
 #include "SerialOTA.h"
+#endif
+
 #include <EspMQTTClient.h>
 
 /* // This one lets EspMQTTclient control MQTT and WiFi
